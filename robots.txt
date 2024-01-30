@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://localhost:5000/sitemap.xml.gz
+Sitemap: https://docs.quickdapp.xyz/sitemap.xml.gz
