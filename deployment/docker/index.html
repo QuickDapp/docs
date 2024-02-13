@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.760033222567">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.761155769651">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,11 +31,11 @@
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.5.0.760033222567" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.761155769651" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.760033222567" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.761155769651" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.760033222567" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.761155769651" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -211,6 +211,37 @@
 </doc-anchor-target>
 <p>One built the images can be <a href="../../command-line/docker/">run locally</a> and/or deployed to any Docker container hosting environment of your choice.</p>
 <p>At present, QuickDapp provides built-in support for <a href="../digital-ocean/">deploying to DigitalOcean</a>.</p>
+<doc-anchor-target id="bundling-npm-packages">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#bundling-npm-packages">#</doc-anchor-trigger>
+        <span>Bundling NPM packages</span>
+    </h2>
+</doc-anchor-target>
+<p>Most Node packages will get automatically bundled into the built output by webpack. However, some packages will still require their <code v-pre>node_modules</code> sub-folders to exist at runtime in order to work properly (e.g <a href="https://www.prisma.io/">Prisma</a>).</p>
+<p>These can be seen inside the <code v-pre>Dockerfile</code>, e.g:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">COPY --from=build_base /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=build_base /app/node_modules/prisma ./node_modules/prisma
+COPY --from=build_base /app/node_modules/@prisma ./node_modules/@prisma</code></pre>
+</doc-codeblock></div>
+<p>If you are using a package also has the same requirement then simply add a corresponding line for it in all of the sections in the <code v-pre>Dockerfile</code>. For example, if you you are using the <code v-pre>mailgen</code> package then you would add a single line for each of the three build image types:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none"># web
+FROM build_base as build_base_web
+...
+COPY --from=build_base /app/node_modules/mailgen ./node_modules/mailgen
+
+# worker
+FROM build_base as build_base_worker
+...
+COPY --from=build_base /app/node_modules/mailgen ./node_modules/mailgen
+
+# web + worker combined
+FROM base AS all
+...
+COPY --from=build_base /app/node_modules/mailgen ./node_modules/mailgen</code></pre>
+</doc-codeblock></div>
+<p>Some NPM packages need to bundled</p>
 
                                 
                                 <!-- Required only on API pages -->
