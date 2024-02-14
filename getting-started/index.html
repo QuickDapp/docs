@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.761202426178">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.761203662371">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,12 +31,12 @@
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../static/favicon.png" rel="icon">
-    <link href="../resources/css/retype.css?v=3.5.0.761202426178" rel="stylesheet">
+    <link href="../resources/css/retype.css?v=3.5.0.761203662371" rel="stylesheet">
 
-    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.761202426178" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.761203662371" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.761202426178" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../resources/js/prism.js?v=3.5.0.761202426178" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.761203662371" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../resources/js/prism.js?v=3.5.0.761203662371" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -279,9 +279,11 @@
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">Enter the following line into your .env.development or .env.local file:
                                                                                
-NEXT_PUBLIC_DIAMOND_PROXY_ADDRESS=&quot;0x5FbDB2315678afecb367f032d93F642f64180aa3&quot;</code></pre>
+NEXT_PUBLIC_DIAMOND_PROXY_ADDRESS=&quot;0x79D219573A2b042479604aBA46BE7CECc52A57cd&quot;</code></pre>
 </doc-codeblock></div>
-<p>Follow the instructions and place this into either one of those files. Create the file if it doesn&#x27;t exist.</p>
+<p>This address (usually it&#x27;s <code v-pre>0x79D219573A2b042479604aBA46BE7CECc52A57cd</code>) is the address of the Diamond proxy contract that
+is now deployed to your locally running Anvil node.</p>
+<p>Follow the instructions and place this line into either one of those files. Create the file if it doesn&#x27;t exist.</p>
 <p>At this point we have locally running Anvil node with our upgradeable proxy contract deployed to it.</p>
 <doc-anchor-target id="step-5---setup-metamask">
     <h2>

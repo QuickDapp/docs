@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.761202426178">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.761203662371">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,12 +31,12 @@
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../static/favicon.png" rel="icon">
-    <link href="../resources/css/retype.css?v=3.5.0.761202426178" rel="stylesheet">
+    <link href="../resources/css/retype.css?v=3.5.0.761203662371" rel="stylesheet">
 
-    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.761202426178" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.761203662371" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.761202426178" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../resources/js/prism.js?v=3.5.0.761202426178" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.761203662371" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../resources/js/prism.js?v=3.5.0.761203662371" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -197,7 +197,7 @@
 </doc-anchor-target>
 <p>Environment variables are the primary means through which to pass configuration to your app at both build-time and runtime.</p>
 <p>QuickDapp follows the <a href="https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables">Next.js conventions</a> when it comes to specifying environment variables for your app.</p>
-<p>The <a href="https://www.npmjs.com/package/dotenv">dotenv</a> loads environement varibles from various <code v-pre>.env*</code> files in the project root folder whilst still allowing for overrides specified directly via the shell/terminal environment itself.</p>
+<p>The <a href="https://www.npmjs.com/package/dotenv">dotenv</a> loads environment varibles from various <code v-pre>.env*</code> files in the project root folder whilst still allowing for overrides specified directly via the shell/terminal environment itself.</p>
 <p>Environment variables are loaded in the following order, with later places taking precendence over earlier ones:</p>
 <ol>
 <li><code v-pre>.env</code></li>
@@ -207,15 +207,32 @@
 <p>What this means is that if the same environment variable is declared in multiple places then its final value during runtime is determined by the above order.</p>
 <p>Some key points to note:</p>
 <ul>
-<li>The <code v-pre>.env</code> file is <strong>required.</strong> This file should contain values suitable for local development as well as any values which are unlikely to change across environments. It gets bundled into production and Docker builds and can be checked into source control.</li>
-<li>The <code v-pre>.env.development</code> and <code v-pre>.env.production</code> files are already <em>git-ignored</em> and should <strong>never</strong> be checked into source control.
+<li>The <code v-pre>.env</code> file is <strong>required.</strong> This file should contain any values which are unlikely to change across environments. It gets bundled into production and Docker builds and will be checked into source control.</li>
+<li>The <code v-pre>.env.development</code> and <code v-pre>.env.production</code> files are already <em>git-ignored</em> and should <strong>never</strong> be checked into source control since they are intended to contain sensitive information (e.g API keys).
 <ul>
 <li>The <code v-pre>.env.development</code> file gets loaded when the app is run in dev server mode.</li>
 <li>The <code v-pre>.env.production</code> file gets loaded when building production version of the app, running the production version and also gets bundled into Docker images.</li>
 </ul>
 </li>
-<li>The <code v-pre>.env.local</code> file is for further customization in all environments, e.g if you are temporarily testing a value different to the default. However, note that it does <strong>not</strong> get bundled into <a href="../deployment/docker/">Docker images</a>.</li>
+<li>The <code v-pre>.env.local</code> file is for further customization in all environments, e.g if you are temporarily testing a value different to the default. It also does not get checked into version control. However, note that it also does <strong>not</strong> get bundled into <a href="../deployment/docker/">Docker images</a>.</li>
 </ul>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p><strong>DO NOT</strong> store sensitive information (e.g API keys) in the <code v-pre>.env</code> file. Use the environment-specific or <code v-pre>.env.local</code> files to store such information.</p>
+        </div>
+    </div>
+</div>
 <p>The files use the INI file format:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-ini"><code v-pre class="language-ini"># a comment
