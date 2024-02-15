@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.761231758718">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.761316922355">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,11 +31,12 @@
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.5.0.761231758718" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.761316922355" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.761231758718" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.761316922355" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.761231758718" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.761316922355" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.761316922355" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -217,6 +218,11 @@
 <p>The signed message is sent to the backend for verification. Once verified, a JWT (JSON Web Token) is used to store the user&#x27;s sessions for any subsequent <a href="../graphql/">queries</a> made to the backend. The <a href="../global/">global context</a> object will also be updated to contains the user&#x27;s wallet information.</p>
 <p>The user remains authenticated across browser sessions until and unless the user changes their active wallet and/or manually disconnects from the dapp.</p>
 <p><em>Note: If the user&#x27;s crypto wallet is connected to a different chain then they will be prompted to switch to the right chain.</em></p>
+<p>### App name</p>
+<p>The <code v-pre>src/shared/constants.ts</code> file contains the app name that will be shown to users during the wallet connection process. Update these values accordingly:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">export const APP_NAME = 'QuickDapp'</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="contracts">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#contracts">#</doc-anchor-trigger>
@@ -324,6 +330,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Web3", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Web3", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
