@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.762732701560">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.762874276901">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>ABIs and addresses | QuickDapp</title>
     <meta name="title" content="ABIs and addresses | QuickDapp">
-    <meta name="description" content="All required ABIs and contract addresses should be specified in src/shared/contracts.ts, following the format there-in.">
+    <meta name="description" content="The src/shared/abi/config.json specifies what contract ABIs should be made available to your application and how to generate them">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://docs.quickdapp.xyz/smart-contracts/abis-and-addresses/">
@@ -20,22 +20,23 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://docs.quickdapp.xyz/smart-contracts/abis-and-addresses/">
     <meta property="og:title" content="ABIs and addresses | QuickDapp">
-    <meta property="og:description" content="All required ABIs and contract addresses should be specified in src/shared/contracts.ts, following the format there-in.">
+    <meta property="og:description" content="The src/shared/abi/config.json specifies what contract ABIs should be made available to your application and how to generate them">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://docs.quickdapp.xyz/smart-contracts/abis-and-addresses/">
     <meta property="twitter:title" content="ABIs and addresses | QuickDapp">
-    <meta property="twitter:description" content="All required ABIs and contract addresses should be specified in src/shared/contracts.ts, following the format there-in.">
+    <meta property="twitter:description" content="The src/shared/abi/config.json specifies what contract ABIs should be made available to your application and how to generate them">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="../../static/favicon.png" rel="icon">
-    <link href="../../resources/css/retype.css?v=3.5.0.762732701560" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.762874276901" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.762732701560" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.762874276901" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.762732701560" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.762874276901" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.762874276901" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -194,8 +195,39 @@
         <span>ABIs and addresses</span>
     </h1>
 </doc-anchor-target>
-<p>All required ABIs and contract addresses should be specified in <a href="https://github.com/QuickDapp/QuickDapp/tree/master/src/shared/contracts.ts"><code v-pre>src/shared/contracts.ts</code></a>, following the format there-in.</p>
-<p>The following methods are provided:</p>
+<p>The <a href="https://github.com/QuickDapp/QuickDapp/tree/master/src/shared/abi/config.json"><code v-pre>src/shared/abi/config.json</code></a> specifies what contract ABIs should be made available to your application and how to generate them
+based on Solidity compiler output.</p>
+<p>The configuration schema provides for combining multiple compiled output JSONs into a single ABI structure - this is especially useful in situations where events and erros are defined in interfaces and other files
+separate to the main contract&#x27;s source code.</p>
+<p>For example, the default <code v-pre>config.json</code> looks as follows:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  // The name of the ABI at runtime, will be referencable via the `ContractName` enum as `ContractName.Erc20`
+  &quot;Erc20&quot;: [
+    // a location to load ABI fragments from
+    {
+      // loads from all files which match this pattern
+      &quot;glob&quot;: &quot;../data/erc20abi.json&quot;
+    }
+  ],
+  &quot;DiamondProxy&quot;: [
+    {
+      &quot;glob&quot;: &quot;../../../contracts/out/IDiamondProxy.sol/IDiamondProxy.json&quot;,
+      // The &quot;path&quot; inside the JSON file above at this the ABI fragments actually sit. For Foundry compilation output it's usually the `abi` key. If ommitted then the JSON file itself is assumed to be the ABI.
+      &quot;keyPath&quot;: &quot;abi&quot;
+    },
+    {
+      &quot;glob&quot;: &quot;../../../contracts/out/**/**.json&quot;,
+      &quot;keyPath&quot;: &quot;abi&quot;,
+      // The types of ABI fragments to include in the generated output. If ommitted then all fragments are included.
+      &quot;types&quot;: [&quot;error&quot;, &quot;event&quot;]
+    }
+  ]
+}</code></pre>
+</doc-codeblock></div>
+<p>The code generator will then generate a Typescript file based on this configuration and - when running <a href="../../command-line/dev/">dev</a> mode - watch for configuration changes and rebuild accordingly.</p>
+<p>The generated Typescript file is located at <code v-pre>src/shared/abi/generated.ts</code> and is referenced by the <a href="https://github.com/QuickDapp/QuickDapp/tree/master/src/shared/contracts.ts"><code v-pre>src/shared/contracts.ts</code></a> file. This
+file provides the following methods:</p>
 <ul>
 <li><code v-pre>getContractInfo</code> - returns ABI of a contract</li>
 <li><code v-pre>getDeployedContractInfo</code> - returns ABU and address of a contract on a given chain.</li>
@@ -270,6 +302,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "ABIs and addresses", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "ABIs and addresses", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
